@@ -1,15 +1,60 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        int[][] numbers = {
+                {5, 1},
+                {3, 2},
+                {7, 1},
+                {5, 2},
+                {7, 4},
+                {6, 5},
+                {6, 4},
+                {7, 5},
+                {2, 1},
+                {5, 3}
+        };
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        int[] uniqueValues = getUniqueValues(numbers);
+        Arrays.sort(uniqueValues);
+        int[] counts = countOccurrences(numbers, uniqueValues);
+
+        System.out.print("Счетчики: ");
+        for (int count : counts) {
+            System.out.print(count + ", ");
         }
+        System.out.println();
+    }
+
+    public static int[] getUniqueValues(int[][] numbers) {
+        Set<Integer> uniqueSet = new HashSet<>();
+        for (int[] row : numbers) {
+            for (int value : row) {
+                uniqueSet.add(value);
+            }
+        }
+        int[] uniqueValues = new int[uniqueSet.size()];
+        int index = 0;
+        for (int value : uniqueSet) {
+            uniqueValues[index++] = value;
+        }
+        return uniqueValues;
+    }
+
+    public static int[] countOccurrences(int[][] numbers, int[] uniqueValues) {
+        int[] counts = new int[uniqueValues.length];
+        for (int[] row : numbers) {
+            for (int value : row) {
+                for (int i = 0; i < uniqueValues.length; i++) {
+                    if (value == uniqueValues[i]) {
+                        counts[i]++;
+                        break;
+                    }
+                }
+            }
+        }
+        return counts;
     }
 }
