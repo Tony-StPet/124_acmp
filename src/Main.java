@@ -1,25 +1,36 @@
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int[][] numbers = {
-                {5, 1},
-                {3, 2},
-                {7, 1},
-                {5, 2},
-                {7, 4},
-                {6, 5},
-                {6, 4},
-                {7, 5},
-                {2, 1},
-                {5, 3}
+
+
+        // Получаем ввод от пользователя
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите  M тоннелей : ");
+        int M = scanner.nextInt();
+        System.out.print("Введите  N перекрестков: ");
+        int N = scanner.nextInt();
+
+        // Создаем массивы
+        int[][] numbers = new int[2][M];
+        int[] counts = new int[N];
+
+        // Заполняем массивы данными
+        System.out.println("Заполните массив:: перекрестки i и j соединены тоннелем");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < M; j++) {
+                System.out.printf("numbers[%d][%d] = ", i, j);
+                numbers[i][j] = scanner.nextInt();
+            }
         };
+
 
         int[] uniqueValues = getUniqueValues(numbers);
         Arrays.sort(uniqueValues);
-        int[] counts = countOccurrences(numbers, uniqueValues);
+        counts = countOccurrences(numbers, uniqueValues);
 
         System.out.print("Счетчики: ");
         for (int count : counts) {
@@ -27,6 +38,8 @@ public class Main {
         }
         System.out.println();
     }
+
+
 
     public static int[] getUniqueValues(int[][] numbers) {
         Set<Integer> uniqueSet = new HashSet<>();
